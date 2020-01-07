@@ -76,7 +76,8 @@ public class Connect3
                             System.out.print("\f");
                             printBoard(input);                                                                              // Clear and reprint board after each move
                             if (checkForWinner(input) == true) {                                                            // Check for win condition. If so, winner.
-                                System.out.println("\nPlayer 1 Wins!");   
+                                System.out.println("\nPlayer 1 Wins!");  
+                                playAgain (input);
                             }   
                         } else {
                             System.out.print("\f");
@@ -116,6 +117,7 @@ public class Connect3
                                 printBoard(input);                                                                          // Clear and reprint board after each move
                                 if (checkForWinner(input) == true) {                                                        // Check for win condition. If so, winner.
                                     System.out.println("\nPlayer 2 Wins!");
+                                    playAgain (input);
                                 }  
                             } else {
                                 System.out.print("\f");
@@ -159,7 +161,7 @@ public class Connect3
                 winState = true;
             }
         }  
-        
+
         if (input[2][0].equalsIgnoreCase("◆") && input[1][1].equalsIgnoreCase("◆") && input[0][2].equalsIgnoreCase("◆")) {          // Hardcode check for diagonals for P1
             winState = true;
         }
@@ -185,7 +187,7 @@ public class Connect3
         if (input[0][0].equalsIgnoreCase("◇") && input[1][1].equalsIgnoreCase("◇") && input[2][2].equalsIgnoreCase("◇")) {
             winState = true;
         }
-        
+
         return winState;
     }
 
@@ -201,4 +203,29 @@ public class Connect3
 
         return columnFull;
     }
+
+    private static void playAgain (String[][] input) {
+        Scanner scanner = new Scanner (System.in);
+        boolean goodResponse = false;
+        System.out.print("\nPlay Again? [Y, N]");
+
+        while (goodResponse == false) {
+            String response = scanner.nextLine();
+
+            if (response.matches("^([Y|y|N|n])$")) {
+                if (response.equalsIgnoreCase("y")) {
+                    System.out.print("\f");
+                    main();
+                } else if (response.equalsIgnoreCase("n")) {
+                    System.out.print("\fGame Ended.");
+                    System.exit(0);
+                }
+            } else {
+                System.out.print("\f");
+                printBoard(input);  
+                System.out.print("\nThat is not a choice.\n\nPlay Again? [Y, N]");
+            }
+        }
+    }
 }
+
